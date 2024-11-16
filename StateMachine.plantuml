@@ -1,0 +1,27 @@
+@startuml StateMachine
+
+hide empty description
+
+[*] --> Wait
+state "<b>Wait</b>\n<i>Wait for start signal</i>" as Wait
+state "<b>Search</b>\n<i>Find obstacle</i>" as Search
+state "<b>Retreat</b>\n<i>Drive away from obstacle</i>" as Retreat
+state "<b>Manual</b>\n<i>Remote control</i>" as Manual
+
+Wait --> Search : Command
+Search --> Retreat : Obstacle\ndetected
+Search --> Search : Timeout
+Search --> Manual : Command
+Retreat --> Search : Finished
+Retreat --> Retreat : Timeout\n(next move)
+Retreat --> Manual : Command
+Manual --> Manual : Command
+
+state Search {
+    state "Search\nRotate" as Rotate
+    state "Search\nForward" as Forward
+    Rotate -> Forward
+    Forward -> Rotate
+}
+
+@enduml
