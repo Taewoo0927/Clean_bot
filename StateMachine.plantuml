@@ -5,7 +5,7 @@ hide empty description
 [*] --> Wait
 state "<b>Wait</b>\n<i>Wait for start signal</i>" as Wait
 state "<b>Search</b>\n<i>Find obstacle</i>" as Search
-state "<b>Retreat</b>\n<i>Drive away from obstacle</i>" as Retreat
+state "<b>Retreat</b>\n<i>Drive away from obstacle</i>\n(Check Retreat diagram for details)" as Retreat
 state "<b>Manual</b>\n<i>Remote control</i>" as Manual
 
 Wait --> Search : Command
@@ -22,6 +22,12 @@ state Search {
     state "Search\nForward" as Forward
     Rotate -> Forward
     Forward -> Rotate
+}
+
+state Retreat {
+    state Obstacle <<choice>>
+    state "Retreat\n*" as RetreatState
+    Obstacle -> RetreatState : Obstacle\n*
 }
 
 @enduml

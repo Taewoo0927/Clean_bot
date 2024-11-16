@@ -1,0 +1,25 @@
+@startuml RetreatState
+
+hide empty description
+
+state "<b>Retreat</b>\n<i>Drive away from obstacle</i>" as Retreat
+[*] --> Retreat : Obstacle
+
+state Retreat {
+    state ObstacleDetected <<choice>>
+    state AlignLeft as "ALIGN_LEFT"
+    state AlignRight as "ALIGN_RIGHT"
+    state Reverse as "REVERSE"
+    state ArcturnLeft as "ARCTURN_LEFT"
+    state ArcturnRight as "ARCTURN_RIGHT"
+
+    ObstacleDetected --> AlignLeft : Obstacle\nRight
+    ObstacleDetected --> AlignRight : Obstacle\nLeft
+    ObstacleDetected --> Reverse : Obstacle\nFront
+    ObstacleDetected --> ArcturnLeft : Obstacle\nBack left
+    ObstacleDetected --> ArcturnRight : Obstacle\nBack right
+    ObstacleDetected --> Reverse : else
+
+}
+
+@enduml
