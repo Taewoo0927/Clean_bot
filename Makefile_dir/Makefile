@@ -7,16 +7,22 @@ LINKER_SCRIPT = msp430g2553.ld
 CFLAGS = -mmcu=$(MCU) -Wall -I$(INCLUDE_PATH)
 LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT)
 
-# Source files and output file
+# Source files and output file & directories
+BUILD_DIR = Build
 SRC = src/main.c 
 OBJ = $(SRC:.c=.o)
-TARGET = main.elf
+TARGET = $(BUILD_DIR)/main.elf
+HEX_FILE = $(BUILD_DIR)/main.txt
 
 # Default rule: build the target
 all: $(TARGET)
 
+# Create the build directory if it doesn't exist
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
 # Link all object files into the final executable
-$(TARGET): $(OBJ)
+$(TARGET): $(OBJ) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJ)
 
 # Compile each source file into an object file
@@ -25,12 +31,12 @@ $(TARGET): $(OBJ)
 
 # Clean up build files
 clean:
-	rm -f $(OBJ) $(TARGET) main.txt
+	rm -f $(OBJ) $(TARGET) $(HEX_FILE)
 
 # Convert ELF to TI-TXT format for flashing
-main.txt: $(TARGET)
-	msp430-elf-objcopy -O ihex $(TARGET) main.txt
+$(HEX_FILE): $(TARGET)
+	msp430-elf-objcopy -O ihex $(TARGET) $(HEX_FILE)
 
 # Flash the code to the microcontroller
-flash: main.txt
-	C:/ti/MSPFlasher_1.3.20/MSP430Flasher.exe -n $(MCU) -w main.txt -v -g
+flash: $(HEX_FILE)
+	C:/ti/MSPFlasher_1.3.20/MSP430Flasher.exe -n $(MCU) -w $(HEX_FILE) -v -g
