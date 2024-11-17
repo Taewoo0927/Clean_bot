@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "windows-gcc-x64",
+      "includePath": [
+        "${workspaceFolder}/include",
+        "C:/ti/msp430-gcc/include" // Add to specify include folder
+      ],
+      "compilerPath": "C:/ti/msp430-gcc/bin/msp430-elf-gcc.exe",
+      "cStandard": "${default}",
+      "cppStandard": "${default}",
+      "intelliSenseMode": "windows-gcc-x64",
+      "compilerArgs": [
+        "-mmcu=msp430g2553"
+      ]
+    }
+  ],
+  "version": 4
+}
