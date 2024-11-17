@@ -11,8 +11,13 @@ git-check:
 
 # Pull request
 git-pull:
-	@git pull origin $$(git rev-parse --abrev-ref HEAD)
-	@echo "Pulled lastest changes from the remote branch"
+	@if git fetch && [ -z "$$(git log HEAD..origin/$$(git rev-parse --abbrev-ref HEAD) --oneline)" ]; then \
+		echo "Your branch is already up to date."; \
+	else \
+		echo "Pulling latest changes from the remote branch..."; \
+		git pull origin $$(git rev-parse --abbrev-ref HEAD); \
+		echo "Successfully pulled the latest changes."; \
+	fi
 
 # Commit the changes
 git-commit:
@@ -45,5 +50,5 @@ git-push:
 	@echo "Pushed changes to the remote repository."
 
 # Pull, Commit, and Push in one go
-git-pull-commit-push: git-pull git-commit git-push
+git-pull-commit-push: git-pull git-check-commit git-push
 	@echo "Pull, commit, and push completed successfully."
