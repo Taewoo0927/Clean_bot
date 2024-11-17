@@ -40,3 +40,7 @@ $(HEX_FILE): $(TARGET)
 # Flash the code to the microcontroller
 flash: $(HEX_FILE)
 	C:/ti/MSPFlasher_1.3.20/MSP430Flasher.exe -n $(MCU) -w $(HEX_FILE) -v -g
+	mspdebug ezfet -d COM7 "reset"
+
+reset:
+	mspdebug ezfet -d COM7 "reset"

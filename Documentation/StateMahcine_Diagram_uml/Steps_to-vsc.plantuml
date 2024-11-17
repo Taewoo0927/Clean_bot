@@ -1,0 +1,15 @@
+@startuml Firmware_Build_Process
+
+hide empty description
+
+state "<b>Compile code</b>\nCompiled (.c files) into object files (.o files, machine code)" as Compiler
+state "<b>Link object files</b>\nLinking objs to create an executable file(.elf)" as Linker
+state "<b>Flash uc</b>\nExecutable file flashed to the Microcontroller's memory" as Flasher
+state "<b>Program Execution</b>\nReset and executing the code from reset vector" as Execution
+[*] --> Compiler : Compiling
+Compiler --> Linker : Linking
+Linker --> Flasher : Flash
+Flasher --> Execution : Executing
+
+
+@enduml
