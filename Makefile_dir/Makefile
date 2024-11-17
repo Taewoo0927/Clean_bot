@@ -1,4 +1,4 @@
-# include Makefile_dir/Git.mk
+#include Makefile_dir/Git.mk
 
 # Compiler and MCU settings
 CC = msp430-elf-gcc
