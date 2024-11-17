@@ -1,10 +1,13 @@
 # Git.mk
 
 # Check if there is uncommitted changes
-check-git:
+git-check:
+	@git config user.name "Taewoo0927"
+	@git config user.email "taewookim0927@gmail.com"
 	@if ! git diff-index --quiet HEAD --; then \
 		echo "Uncommitted changes detected. Please commit your changes before proceeding."; \
 		exit 1; \
+	fi
 
 # Pull request
 git-pull:
