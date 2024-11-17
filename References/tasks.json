@@ -1,0 +1,76 @@
+// Initial Tasks json file without using make file
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Project",
+            "type": "shell",
+            "command": "C:/ti/msp430-gcc/bin/msp430-elf-gcc.exe",
+            "args": [
+                "-mmcu=msp430g2553",
+                "-I", "C:/ti/msp430-gcc/include",
+                "-L", "C:/ti/msp430-gcc/include",
+                "-T", "msp430g2553.ld",
+                "-o",
+                "main.elf",
+                "src/main.c"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Convert ELF to TI-TXT",
+            "type": "shell",
+            "command": "C:/ti/msp430-gcc/bin/msp430-elf-objcopy.exe",
+            "args": [
+                "-O", "ihex",
+                "main.elf",
+                "main.txt"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Flash Project",
+            "type": "shell",
+            "command": "C:\\ti\\MSPFlasher_1.3.20\\MSP430Flasher.exe",
+            "args": [
+                "-n", "MSP430G2553",
+                "-w", "main.txt",
+                "-v",
+                "-g"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Clean Project",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c", "del main.elf"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },        
+        {
+            "label": "Build and Flash",
+            "dependsOn": ["Build Project", "Convert ELF to TI-TXT", "Flash Project"],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        }
+        
+    ]
+
+}

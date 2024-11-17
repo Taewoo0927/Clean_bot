@@ -1,0 +1,34 @@
+Summary of Steps
+1. Created tasks.json
+
+defined a build task to specify:
+
+The compiler (msp430-elf-gcc.exe).
+The source files (main.c and any other .c files).
+The microcontroller model using the -mmcu flag (e.g., -mmcu=msp430g2553).
+The include paths for the MSP430 headers (using -I).
+The linker script path (using -L and -T).
+
+2. Modified launch.json
+configured the debugger settings to:
+
+Use msp430-elf-gdb.exe as the debugger (miDebuggerPath).
+Point to the compiled executable (main.elf).
+Enable GDB features like pretty-printing.
+
+3. Updated c_cpp_properties.json
+You configured IntelliSense to:
+
+Recognize the compiler (msp430-elf-gcc.exe).
+Include the header paths for MSP430 (includePath).
+Set the compiler arguments (compilerArgs) to specify the microcontroller model (-mmcu=msp430g2553).
+
+4. Added Flash to tasks.json to upload code
+
+5. Converted everything to Makefile
+
+Simple Steps Recap:
+1. Built tasks.json: Specified which .c files to include, the microcontroller, and paths for headers and linker script.
+2. Modified launch.json: Set the path to the debugger (msp430-elf-gdb.exe) and the executable (main.elf).
+3. Modified c_cpp_properties.json: Added compilerArgs to specify the microcontroller (-mmcu) and set the compiler and include paths.
+
