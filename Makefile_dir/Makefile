@@ -2,10 +2,10 @@
 CC = msp430-elf-gcc
 MCU = msp430g2553
 INCLUDE_PATH = C:/ti/msp430-gcc/include
-CUSTOM_INCLUDE = ./include/Drivers
+CUSTOM_INCLUDE = ./include
 LIB_PATH = C:/ti/msp430-gcc/include
 LINKER_SCRIPT = msp430g2553.ld
-CFLAGS = -mmcu=$(MCU) -Wall -I$(CUSTOM_INCLUDE) -I$(INCLUDE_PATH) 
+CFLAGS = -mmcu=$(MCU) -Wall -I$(INCLUDE_PATH) -I$(CUSTOM_INCLUDE) 
 LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT)
 
 # Source files and output file & directories

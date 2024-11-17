@@ -31,6 +31,14 @@
                 "kind": "test",
                 "isDefault": false
             }
+        },
+        {
+            "label": "Build and Flash Makefile",
+            "dependsOn": ["Build with Makefile", "Flash with Makefile"],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
         }
     ]
 }
