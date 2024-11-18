@@ -2,11 +2,12 @@
 
 # To do:
 # Make git-init to set up name & email to push properly
+git-init:
+	@git config user.name "Taewoo0927";
+	@git config user.email "taewookim0927@gmail.com";
 
 # Check if there is uncommitted changes
-git-check:
-	@git config user.name "Taewoo0927"
-	@git config user.email "taewookim0927@gmail.com"
+git-check: init
 	@if ! git diff-index --quiet HEAD --; then \
 		echo "Uncommitted changes detected. Please commit your changes before proceeding."; \
 		exit 1; \
@@ -24,8 +25,6 @@ git-pull:
 
 # Commit the changes
 git-commit:
-	@git config user.name "Taewoo0927";
-	@git config user.email "taewookim0927@gmail.com";
 	@echo "Enter commit message:"; \
 	read msg; \
 	if [ -z "$$msg" ]; then \
