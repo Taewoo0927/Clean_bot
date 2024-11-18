@@ -24,11 +24,16 @@ git-pull:
 
 # Commit the changes
 git-commit:
-	@echo "Enter commit message:" \
+	@git config user.name "Taewoo0927"; \
+	git config user.email "taewookim0927@gmail.com"; \
+	echo "Enter commit message:"; \
 	read msg; \
+	if [ -z "$$msg" ]; then \
+		msg="Auto-commit from Makefile"; \
+	fi; \
 	git add .; \
-	git commit -m "$$msg"
-	@echo "Changes have been committed."
+	git commit -m "$$msg"; \
+	echo "Changes have been committed with message: '$$msg'."
 
 # Check if there is uncommited changes and commit the changes
 git-check-commit:
