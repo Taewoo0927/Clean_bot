@@ -1,5 +1,8 @@
 # Git.mk
 
+# To do:
+# Make git-init to set up name & email to push properly
+
 # Check if there is uncommitted changes
 git-check:
 	@git config user.name "Taewoo0927"
@@ -44,6 +47,7 @@ git-check-commit:
 	else \
 		echo "No changes to commit."; \
 	fi
+	
 # Push the committed changes
 git-push:
 	@git push origin $$(git rev-parse --abbrev-ref HEAD)
