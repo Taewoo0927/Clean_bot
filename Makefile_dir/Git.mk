@@ -1,13 +1,12 @@
 # Git.mk
 
-# To do:
-# Make git-init to set up name & email to push properly
+# git-init to set up name & email initially
 git-init:
 	@git config user.name "Taewoo0927";
 	@git config user.email "taewookim0927@gmail.com";
 
 # Check if there is uncommitted changes
-git-check: init
+git-check:
 	@if ! git diff-index --quiet HEAD --; then \
 		echo "Uncommitted changes detected. Please commit your changes before proceeding."; \
 		exit 1; \
@@ -36,8 +35,6 @@ git-commit:
 
 # Check if there is uncommited changes and commit the changes
 git-check-commit:
-	@git config user.name "Taewoo0927"
-	@git config user.email "taewookim0927@gmail.com"
 	@if ! git diff-index --quiet HEAD --; then \
 		echo "Uncommitted changes detected. Auto-committing changes..."; \
 		git add .; \
