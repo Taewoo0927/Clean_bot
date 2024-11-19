@@ -1,9 +1,12 @@
 #include <msp430.h>
-
+#include "Drivers/io.h"
 
 /**
  * main.c
  */
+int sum(int a, int b){
+    return a+b;
+}
 int main(void)
 {
     volatile unsigned int i;

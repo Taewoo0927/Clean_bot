@@ -1,0 +1,16 @@
+@startuml Project_pipeline
+
+hide empty description
+
+state "<b>Static Analysis</b>\n<i>Runs a cppcheck to check potential error</i>" as Static_analysis
+state "<b>Check Git</b>\n<i>Ensures no uncommitted changes for consistency</i>" as Check_git
+state "<b>Build</b>\n<i>Build code, converting .c to .elf" as Build
+state "<b>Flash</b>\n<i>Flash code, uploads a binary file to hardware" as Flash
+
+[*] --> Static_analysis : user
+Static_analysis --> Check_git : Ensure no error
+Check_git --> Build : Ensures consistent commit
+Build --> Flash : Built codes
+Flash -->  end : Upload codes
+
+@enduml
