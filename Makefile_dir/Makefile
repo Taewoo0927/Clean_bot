@@ -7,6 +7,7 @@ LIB_PATH = C:/ti/msp430-gcc/include
 LINKER_SCRIPT = msp430g2553.ld
 CFLAGS = -mmcu=$(MCU) -Wall -I$(INCLUDE_PATH) -I$(CUSTOM_INCLUDE) 
 LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT)
+CPPCHECK = cppcheck
 
 # Source files and output file & directories
 BUILD_DIR = Build
@@ -45,3 +46,11 @@ flash: $(HEX_FILE)
 
 reset:
 	mspdebug ezfet -d COM7 "reset"
+
+cppcheck:
+	$(CPPCHECK) --quiet --enable=all --error-exitcode=1 \
+	--inline-suppr \
+	--suppress=missingIncludeSystem \
+	--suppress=unusedFunction \
+	-I $(CUSTOM_INCLUDE) \
+	$(SRC)
