@@ -10,11 +10,11 @@ jobs:
       image: taewookim0927/msp430-gcc-container:latest
       
     steps:
-    - name: Checkout code
-    - uses: actions/checkout@v4
+      - name: run Checkout the repository
+        uses: actions/checkout@v4
 
-    - name: Build the project
-      run: make all
+      - name: Build the project
+        run: make all
 
-    - name: Run Cppcheck
-      run: make cppcheck
+      - name: Run Cppcheck
+        run: make cppcheck
