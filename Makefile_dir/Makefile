@@ -11,10 +11,10 @@ ifeq ($(OS),Windows_NT)
     LINKER_SCRIPT = C:/ti/msp430-gcc/include/$(MCU).ld
 else
     # Linux settings (GitHub Actions)
-    INCLUDE_PATH = /opt/msp430-gcc/include
+    INCLUDE_PATH = /usr/msp430/include
     CUSTOM_INCLUDE = ./include
-    LIB_PATH = /opt/msp430-gcc/include
-    LINKER_SCRIPT = /opt/msp430-gcc/include/$(MCU).ld
+    LIB_PATH = /usr/msp430/include
+    LINKER_SCRIPT = /usr/msp430/include/$(MCU).ld
 endif
 
 CFLAGS = -mmcu=$(MCU) -Wall -I$(INCLUDE_PATH) -I$(CUSTOM_INCLUDE) 
