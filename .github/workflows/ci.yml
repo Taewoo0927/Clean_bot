@@ -13,8 +13,14 @@ jobs:
       - name: run Checkout the repository
         uses: actions/checkout@v4
 
-      - name: List ldscripts directory
-        run: ls -l /usr/lib/gcc/msp430/*/ldscripts/
+      - name: Check GCC Installation
+        run: |
+          msp430-gcc --version
+          which msp430-gcc
+
+      - name: List Linker Scripts
+        run: |
+          find /usr -name "*.ld" || echo "No linker scripts found."
 
       - name: Build the project
         run: make -f Makefile_dir/Makefile all

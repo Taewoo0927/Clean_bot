@@ -9,17 +9,27 @@ ifeq ($(OS),Windows_NT)
     CUSTOM_INCLUDE = ./include
     LIB_PATH = C:/ti/msp430-gcc/include
     LINKER_SCRIPT = C:/ti/msp430-gcc/include/$(MCU).ld
+	OBJCOPY = msp430-elf-objcopy
 else
     # Linux settings (GitHub Actions)
 	CC = msp430-gcc
-    INCLUDE_PATH = /usr/msp430/include
     CUSTOM_INCLUDE = ./include
-    LIB_PATH = /usr/msp430/include
-    LINKER_SCRIPT = /usr/msp430/include/$(MCU).ld
+    OBJCOPY = msp430-objcopy
 endif
 
-CFLAGS = -mmcu=$(MCU) -Wall -I$(INCLUDE_PATH) -I$(CUSTOM_INCLUDE) 
-LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT)
+# Compiler flags
+CFLAGS = -mmcu=$(MCU) -Wall -I$(CUSTOM_INCLUDE)
+ifeq ($(OS),Windows_NT)
+    CFLAGS += -I$(INCLUDE_PATH) 
+endif
+
+# Linker flags
+ifeq ($(OS),Windows_NT)
+    LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT)
+else
+    LDFLAGS = -mmcu=$(MCU)
+endif
+
 CPPCHECK = cppcheck
 
 # Source files and output file & directories
@@ -50,7 +60,7 @@ clean:
 
 # Convert ELF to TI-TXT format for flashing
 $(HEX_FILE): $(TARGET)
-	msp430-elf-objcopy -O ihex $(TARGET) $(HEX_FILE)
+	$(OBJCOPY) -O ihex $(TARGET) $(HEX_FILE)
 
 # Flash the code to the microcontroller
 flash: $(HEX_FILE)
