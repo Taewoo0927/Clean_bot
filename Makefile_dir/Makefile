@@ -17,13 +17,14 @@ else
     OBJCOPY = msp430-objcopy
 endif
 
-# Compiler flags
+# Compiler flags default
 CFLAGS = -mmcu=$(MCU) -Wall -I$(CUSTOM_INCLUDE)
+# Add specified toolchain's directory if it's window
 ifeq ($(OS),Windows_NT)
     CFLAGS += -I$(INCLUDE_PATH) 
 endif
 
-# Linker flags
+# Window and linux path
 ifeq ($(OS),Windows_NT)
     LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT)
 else
