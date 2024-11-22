@@ -64,5 +64,6 @@ cppcheck:
 	--inline-suppr \
 	--suppress=missingIncludeSystem \
 	--suppress=unusedFunction \
+	--suppress=unmatchedSuppression \
 	-I $(CUSTOM_INCLUDE) \
 	$(SRC)
