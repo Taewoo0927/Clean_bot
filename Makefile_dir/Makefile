@@ -1,16 +1,17 @@
 # Compiler and MCU settings
-CC = msp430-elf-gcc
 MCU = msp430g2553
 
 # Detect Operating System
 ifeq ($(OS),Windows_NT)
     # Windows settings
+	CC = msp430-elf-gcc
     INCLUDE_PATH = C:/ti/msp430-gcc/include
     CUSTOM_INCLUDE = ./include
     LIB_PATH = C:/ti/msp430-gcc/include
     LINKER_SCRIPT = C:/ti/msp430-gcc/include/$(MCU).ld
 else
     # Linux settings (GitHub Actions)
+	CC = msp430-gcc
     INCLUDE_PATH = /usr/msp430/include
     CUSTOM_INCLUDE = ./include
     LIB_PATH = /usr/msp430/include
