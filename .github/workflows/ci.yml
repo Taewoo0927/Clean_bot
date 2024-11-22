@@ -17,4 +17,4 @@ jobs:
         run: make -f Makefile_dir/Makefile all
 
       - name: Run Cppcheck
-        run: make cppcheck
+        run: make -f Makefile_dir/Makefile cppcheck
