@@ -1,0 +1,20 @@
+name: CI Pipeline
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: taewookim0927/msp430-gcc-container:latest
+      
+    steps:
+    - name: Checkout code
+    - uses: actions/checkout@v4
+
+    - name: Build the project
+      run: make all
+
+    - name: Run Cppcheck
+      run: make cppcheck
