@@ -5,17 +5,13 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    container:
+      image: taewookim0927/msp430-gcc-container:latest
+      
     steps:
+    - name: Checkout code
     - uses: actions/checkout@v4
-
-    - name: Install Cppcheck
-      run: sudo apt-get update && sudo apt-get install -y cppcheck p7zip-full
-
-    - name: Install MSP430 GCC Toolchain
-      run: | 
 
     - name: Build the project
       run: make all
