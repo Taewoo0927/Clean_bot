@@ -1,3 +1,6 @@
+# To do:
+# Remove local toolchains and use docker for efficiency.
+
 # Compiler and MCU settings
 MCU = msp430g2553
 
