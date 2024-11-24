@@ -1,0 +1,14 @@
+2024 11-23:
+To do:
+    implement codes for registers in io.h
+
+    io registers lists:
+        PXSEL
+        PXSEL2
+        PXDIR
+        PXREN
+        PXOUT
+        PXIN
+        PXIFG
+        PXIES
+        PXIE
