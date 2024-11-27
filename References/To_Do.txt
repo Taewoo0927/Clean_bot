@@ -2,13 +2,14 @@
 To do:
     implement codes for registers in io.h
 
+    Registers defined as typdef enum{}
     io registers lists:
-        PXSEL
-        PXSEL2
-        PXDIR
-        PXREN
-        PXOUT
-        PXIN
+        PXSEL - ✔️
+        PXSEL2 - ✔️
+        PXDIR - ✔️
+        PXREN - ✔️
+        PXOUT - ✔️
+        PXIN - ✔️
         PXIFG
         PXIES
         PXIE
