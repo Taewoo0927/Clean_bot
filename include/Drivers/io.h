@@ -4,7 +4,8 @@
 #define LAUNCHPAD
 
 // Pins
-typedef enum{
+typedef enum
+{
 #if defined(LAUNCHPAD) // Launchpad (MSP430G2553IN20)
     IO_TEST_LED,
     IO_UART_RXD,
@@ -52,7 +53,8 @@ typedef enum{
 } io_e;
 
 // Select register
-typedef enum{
+typedef enum
+{
     IO_SEL_GPIO,
     IO_SEL_ALT1,
     IO_SEL_ALT2,
@@ -60,13 +62,36 @@ typedef enum{
 } io_sel_e;
 
 // Direction register
-typedef enum{
+typedef enum
+{
     IO_DIR_OP,
     IO_DIR_IP,
 } io_dir_e;
 
+// Pull-up/Pull-down register
+typedef enum
+{
+    IO_RESISTOR_ENABLED,
+    IO_RESISTOR_DISABLED,
+} io_resistor_e;
+typedef enum
+{
+    IO_PULL_STATE_LOW,  //(Pull-down)
+    IO_PULL_STATE_HIGH, //(Pull-up)
+} io_pull_state_e;
+
+// Input register
+typedef enum
+{
+    IO_INPUT_LOW,
+    IO_INPUT_HIGH,
+} io_input_state_e;
+
+// Function definitions
 void io_set_sel(io_e io, io_sel_e sel);
 void io_set_dir(io_e io, io_dir_e dir);
+void io_set_resistor(io_e io, io_resistor_e resistor);
+void io_set_pull_state(io_e io, io_pull_state_e pull);
+io_input_state_e io_get_input(io_e io);
 
-#endif //IO_H
-
+#endif // IO_H
