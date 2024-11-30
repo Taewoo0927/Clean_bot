@@ -2,5 +2,10 @@
 
 void io_set_sel(io_e io, io_sel_e sel)
 {
-    printf("test");
+    switch (sel)
+    {
+    case IO_SEL_GPIO:
+        // Not decided yet
+        break;
+    }
 }
