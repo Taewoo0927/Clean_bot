@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Taewoo Kim/git/repository/Clean_Bot_Proto/Src",
-      "program": "c:/Users/Taewoo Kim/git/repository/Clean_Bot_Proto/Src/build/Debug/outDebug",
+      "cwd": "c:/Users/Taewoo Kim/Desktop/Clean_bot/Src",
+      "program": "c:/Users/Taewoo Kim/Desktop/Clean_bot/Src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

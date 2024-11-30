@@ -58,6 +58,8 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "io.h": "c",
-    "msp430.h": "c"
+    "msp430.h": "c",
+    "msp430g2553.h": "c",
+    "stdio.h": "c"
   }
 }
