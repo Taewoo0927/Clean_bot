@@ -3,26 +3,45 @@
 
 #define LAUNCHPAD
 
+typedef enum
+{
+    IO_10,
+    IO_11,
+    IO_12,
+    IO_13,
+    IO_14,
+    IO_15,
+    IO_16,
+    IO_17,
+    IO_20,
+    IO_21,
+    IO_22,
+    IO_23,
+    IO_24,
+    IO_25,
+    IO_26,
+    IO_27,
+} io_generic_e;
 // Pins
 typedef enum
 {
 #if defined(LAUNCHPAD) // Launchpad (MSP430G2553IN20)
-    IO_TEST_LED,
-    IO_UART_RXD,
-    IO_UART_TXD,
-    IO_UNUSED_1,
-    IO_UNUSED_2,
-    IO_UNUSED_3,
-    IO_UNUSED_4,
-    IO_UNUSED_5,
-    IO_UNUSED_6,
-    IO_UNUSED_7,
-    IO_UNUSED_8,
-    IO_UNUSED_9,
-    IO_UNUSED_10,
-    IO_UNSUED_11,
-    IO_UNUSED_12,
-    IO_UNUSED_13,
+    IO_TEST_LED = IO_10,
+    IO_UART_RXD = IO_11,
+    IO_UART_TXD = IO_12,
+    IO_UNUSED_1 = IO_13,
+    IO_UNUSED_2 = IO_14,
+    IO_UNUSED_3 = IO_15,
+    IO_UNUSED_4 = IO_16,
+    IO_UNUSED_5 = IO_17,
+    IO_UNUSED_6 = IO_20,
+    IO_UNUSED_7 = IO_21,
+    IO_UNUSED_8 = IO_22,
+    IO_UNUSED_9 = IO_23,
+    IO_UNUSED_10 = IO_24,
+    IO_UNSUED_11 = IO_25,
+    IO_UNUSED_12 = IO_26,
+    IO_UNUSED_13 = IO_27,
 #elif defined(CLEAN_BOT) // Clean_bot (MSP430G2553IPW28)
     IO_XSHUT_LEFT,
     IO_XSHUT_RIGHT,
