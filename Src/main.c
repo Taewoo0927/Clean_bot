@@ -18,10 +18,9 @@ int main(void)
 
     while (1)
     {
-        io_set_output(IO_TEST_LED, IO_PULL_STATE_LOW);
+        io_set_output(IO_TEST_LED, IO_PULL_STATE_HIGH);
 
         for (i = 10000; i > 0; i--)
             ;
-        io_set_output(IO_TEST_LED, IO_PULL_STATE_HIGH);
     }
 }
