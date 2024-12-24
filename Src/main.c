@@ -6,8 +6,8 @@
 #define IO_PIN_IDX(io) (((io) % 10))         // Extract Pin Index
 #define IO_PIN_BIT(io) (1 << IO_PIN_IDX(io)) // Shift to compute Pin BIT
 
-static volatile uint8_t *PXDIR[2] = {&P1DIR, &P2DIR};
-static volatile uint8_t *PXOUT[2] = {&P1OUT, &P2OUT};
+static volatile unsigned char *const PXDIR[2] = {&P1DIR, &P2DIR};
+static volatile unsigned char *const PXOUT[2] = {&P1OUT, &P2OUT};
 
 // For checking
 /**
