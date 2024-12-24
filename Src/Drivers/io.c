@@ -16,7 +16,6 @@ static volatile uint8_t *const PXDIR[IO_LOOKUP_SIZE] = {&P1DIR, &P2DIR};
 static volatile uint8_t *const PXOUT[IO_LOOKUP_SIZE] = {&P1OUT, &P2OUT};
 static volatile uint8_t *const PXREG[IO_LOOKUP_SIZE] = {&P1REN, &P2REN};
 static volatile uint8_t *const PXIN[IO_LOOKUP_SIZE] = {&P1IN, &P2IN};
-/*                  */
 
 void io_set_sel(io_e io, io_sel_e sel)
 {
@@ -105,4 +104,12 @@ void io_set_resistor(io_e io, io_resistor_e resistor)
 io_input_state_e io_get_input(io_e io)
 {
     return (*PXIN[IO_PORT(io)] & IO_PIN_BIT(io)) ? IO_INPUT_HIGH : IO_INPUT_LOW;
+}
+
+void io_configuration(io_e io, const struct io_configuration *config)
+{
+    io_set_sel(io, config->select);
+    io_set_dir(io, config->direction);
+    io_set_resistor(io, config->resistor);
+    io_set_output(io, config->output);
 }
