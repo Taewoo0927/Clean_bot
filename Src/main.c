@@ -21,8 +21,8 @@ int main(void)
 
     // Test P1.0 (IO = 10)
     unsigned int io = 10; // Port 1, Pin 0
-    unsigned int port = IO_PORT(io);
-    unsigned int pin_bit = IO_PIN_BIT(io);
+    unsigned int port = 1;
+    unsigned int pin_bit = 0;
 
     // Set P1.0 as output
     *PXDIR[port] |= pin_bit;
