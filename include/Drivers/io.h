@@ -90,15 +90,15 @@ typedef enum
 // Pull-up/Pull-down register - mode
 typedef enum
 {
-    IO_RESISTOR_ENABLED,
     IO_RESISTOR_DISABLED,
+    IO_RESISTOR_ENABLED,
 } io_resistor_e;
 
 typedef enum
 {
     IO_PULL_STATE_LOW,  //(Pull-down)
     IO_PULL_STATE_HIGH, //(Pull-up)
-} io_pull_state_e;
+} io_out_e;
 
 // Input register - mode
 typedef enum
@@ -111,7 +111,7 @@ typedef enum
 void io_set_sel(io_e io, io_sel_e sel);
 void io_set_dir(io_e io, io_dir_e dir);
 void io_set_resistor(io_e io, io_resistor_e resistor);
-void io_set_pull_state(io_e io, io_pull_state_e pull);
+void io_set_output(io_e io, io_out_e out);
 io_input_state_e io_get_input(io_e io);
 
 #endif // IO_H
