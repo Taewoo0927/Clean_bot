@@ -19,8 +19,8 @@ static volatile uint8_t *const PXIN[IO_LOOKUP_SIZE] = {&P1IN, &P2IN};
 
 void io_set_sel(io_e io, io_sel_e sel)
 {
-    unsigned int port = 1;    // IO_PORT(io);       // Extract Port number
-    unsigned int pin_bit = 0; // IO_PIN_BIT(io); // Extract Pin Bit
+    unsigned int port = IO_PORT(io);       // Extract Port number
+    unsigned int pin_bit = IO_PIN_BIT(io); // Extract Pin Bit
 
     // Switch statement to set the sel register
     switch (sel)
@@ -49,8 +49,8 @@ void io_set_sel(io_e io, io_sel_e sel)
 
 void io_set_dir(io_e io, io_dir_e dir)
 {
-    unsigned int port = 1;    // IO_PORT(io);       // Extract Port number
-    unsigned int pin_bit = 0; // IO_PIN_BIT(io); // Extract Pin Bit
+    unsigned int port = IO_PORT(io);
+    unsigned int pin_bit = IO_PIN_BIT(io);
 
     // Switch statement to set the dir register
     switch (dir)
@@ -67,8 +67,8 @@ void io_set_dir(io_e io, io_dir_e dir)
 
 void io_set_output(io_e io, io_out_e out)
 {
-    unsigned int port = 1;    // IO_PORT(io);       // Extract Port number
-    unsigned int pin_bit = 0; // IO_PIN_BIT(io); // Extract Pin Bit
+    unsigned int port = IO_PORT(io);
+    unsigned int pin_bit = IO_PIN_BIT(io);
 
     // Switch statement to set the o/p register
     switch (out)
