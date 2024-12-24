@@ -11,7 +11,7 @@ int main(void)
     WDTCTL = WDTPW | WDTHOLD; // stop watchdog timer
 
     io_set_sel(IO_TEST_LED, IO_SEL_GPIO);
-    P1DIR |= 0x01; // Set P1.0 to output direction
+    io_set_dir(IO_TEST_LED, IO_DIR_OP);
 
     while (1)
     {
