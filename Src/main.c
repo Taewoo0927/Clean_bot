@@ -5,19 +5,31 @@
 /**
  * main.c
  */
+static void blink_led(void)
+{
+    const struct io_configuration led_config =
+        {
+            .select = IO_SEL_GPIO,
+            .direction = IO_DIR_OP,
+            .resistor = IO_RESISTOR_DISABLED,
+            .output = IO_PULL_STATE_LOW};
+    io_configuration(IO_TEST_LED, &led_config);
+    io_out_e op_state = IO_PULL_STATE_LOW;
+
+    while (1)
+    {
+        // Toggle output state
+        op_state = (op_state == IO_PULL_STATE_LOW) ? IO_PULL_STATE_HIGH : IO_PULL_STATE_LOW;
+        // Set output of LED as out
+        io_set_output(IO_TEST_LED, op_state);
+        __delay_cycles(250000);
+    }
+}
+
 int main(void)
 {
     volatile unsigned int i;
     WDTCTL = WDTPW | WDTHOLD; // stop watchdog timer
-
-    io_set_sel(IO_TEST_LED, IO_SEL_GPIO);
-    io_set_dir(IO_TEST_LED, IO_DIR_OP);
-
-    while (1)
-    {
-        P1OUT ^= 0x01; // Toggle P1.0 using exclusive-OR
-
-        for (i = 10000; i > 0; i--)
-            ;
-    }
+    blink_led();
+    return 0;
 }

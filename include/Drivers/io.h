@@ -107,7 +107,17 @@ typedef enum
     IO_INPUT_HIGH,
 } io_input_state_e;
 
+// io configuration - mode
+struct io_configuration
+{
+    io_sel_e select;
+    io_resistor_e resistor;
+    io_dir_e direction;
+    io_out_e output;
+};
+
 // Function definitions
+void io_configuration(io_e io, const struct io_configuration *config);
 void io_set_sel(io_e io, io_sel_e sel);
 void io_set_dir(io_e io, io_dir_e dir);
 void io_set_resistor(io_e io, io_resistor_e resistor);
