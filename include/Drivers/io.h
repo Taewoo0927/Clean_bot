@@ -5,22 +5,22 @@
 
 typedef enum
 {
-    IO_10,
-    IO_11,
-    IO_12,
-    IO_13,
-    IO_14,
-    IO_15,
-    IO_16,
-    IO_17,
-    IO_20,
-    IO_21,
-    IO_22,
-    IO_23,
-    IO_24,
-    IO_25,
-    IO_26,
-    IO_27,
+    IO_10 = 10,
+    IO_11 = 11,
+    IO_12 = 12,
+    IO_13 = 13,
+    IO_14 = 14,
+    IO_15 = 15,
+    IO_16 = 16,
+    IO_17 = 17,
+    IO_20 = 20,
+    IO_21 = 21,
+    IO_22 = 22,
+    IO_23 = 23,
+    IO_24 = 24,
+    IO_25 = 25,
+    IO_26 = 26,
+    IO_27 = 27,
 } io_generic_e;
 // Pins
 typedef enum
@@ -71,7 +71,7 @@ typedef enum
 #endif
 } io_e;
 
-// Select register
+// Select register - mode
 typedef enum
 {
     IO_SEL_GPIO,
@@ -80,26 +80,27 @@ typedef enum
     IO_SEL_ALT3,
 } io_sel_e;
 
-// Direction register
+// Direction register - mode
 typedef enum
 {
     IO_DIR_OP,
     IO_DIR_IP,
 } io_dir_e;
 
-// Pull-up/Pull-down register
+// Pull-up/Pull-down register - mode
 typedef enum
 {
     IO_RESISTOR_ENABLED,
     IO_RESISTOR_DISABLED,
 } io_resistor_e;
+
 typedef enum
 {
     IO_PULL_STATE_LOW,  //(Pull-down)
     IO_PULL_STATE_HIGH, //(Pull-up)
 } io_pull_state_e;
 
-// Input register
+// Input register - mode
 typedef enum
 {
     IO_INPUT_LOW,

@@ -9,7 +9,9 @@ int main(void)
 {
     volatile unsigned int i;
     WDTCTL = WDTPW | WDTHOLD; // stop watchdog timer
-    P1DIR |= 0x01;            // Set P1.0 to output direction
+
+    io_set_sel(IO_TEST_LED, IO_SEL_GPIO);
+    P1DIR |= 0x01; // Set P1.0 to output direction
 
     while (1)
     {
