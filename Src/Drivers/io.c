@@ -3,7 +3,7 @@
 #include "Drivers/io.h"
 
 /* Creating mask to find port */
-#define IO_PORT(io) (((io) / 10))            // Extract Port number
+#define IO_PORT(io) (((io) / 10) - 1)        // Extract Port number, -1 is to account for lookup table 0 -> P1, 1 -> P2
 #define IO_PIN_IDX(io) (((io) % 10))         // Extract Pin Index
 #define IO_PIN_BIT(io) (1 << IO_PIN_IDX(io)) // Shift to compute Pin BIT
 #define IO_LOOKUP_SIZE 2
