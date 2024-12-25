@@ -8,6 +8,7 @@
 static void blink_led(void)
 {
     uint16_t _1sec = _1S;
+
     const struct io_configuration test_led = {
         .direction = IO_DIR_OP,
         .output = IO_PULL_STATE_LOW,
