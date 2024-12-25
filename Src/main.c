@@ -7,7 +7,6 @@
 static void blink_led(void)
 {
     unsigned int _1ms;
-    unsigned int miliseconds = DELAY_MS;
 
     const struct io_configuration test_led = {
         .direction = IO_DIR_OP,
@@ -24,6 +23,7 @@ static void blink_led(void)
         output_state = (output_state == IO_PULL_STATE_LOW ? IO_PULL_STATE_HIGH : IO_PULL_STATE_LOW);
         io_set_output(IO_TEST_LED, output_state);
 
+        unsigned int miliseconds = DELAY_MS;
         while (miliseconds-- > 0)
         {
             _1ms = DELAY_ITERATIONS_PER_MS;
