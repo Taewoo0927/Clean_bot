@@ -22,7 +22,9 @@ static void blink_led(void)
         // Toggle output state
         output_state = (output_state == IO_PULL_STATE_LOW ? IO_PULL_STATE_HIGH : IO_PULL_STATE_LOW);
         io_set_output(IO_TEST_LED, output_state);
-        __delay_cycles(250000);
+        for (i = 1000; i > 0; i--)
+            ;
+        //__delay_cycles(250000); // 250 ms
     }
 }
 
