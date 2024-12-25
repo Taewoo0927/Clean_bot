@@ -1,6 +1,6 @@
 #include "Others/others.h"
 
-#define DELAY_ITERATIONS_PER_MS 63
+#define DELAY_ITERATIONS_PER_MS 68
 
 void _delay_ms(uint8_t miliseconds)
 {
