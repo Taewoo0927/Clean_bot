@@ -1,13 +1,14 @@
 #include <msp430.h>
 #include "Drivers/io.h"
 
-// For checking
-/**
- * main.c
- */
+#define _1ms 67
+#define _number_of_ms 5
+
 static void blink_led(void)
 {
-    volatile unsigned int i = 0;
+    volatile unsigned int ms = _1ms;
+    volatile unsigned int loop_ms = _number_of_ms;
+
     const struct io_configuration test_led = {
         .direction = IO_DIR_OP,
         .output = IO_PULL_STATE_LOW,
@@ -22,8 +23,13 @@ static void blink_led(void)
         // Toggle output state
         output_state = (output_state == IO_PULL_STATE_LOW ? IO_PULL_STATE_HIGH : IO_PULL_STATE_LOW);
         io_set_output(IO_TEST_LED, output_state);
-        for (i = 1000; i > 0; i--)
-            ;
+
+        for (loop_ms; loop_ms > 0; loop_ms--)
+        {
+            for (ms; ms > 0; ms--)
+                ;
+        }
+
         //__delay_cycles(250000); // 250 ms
     }
 }
