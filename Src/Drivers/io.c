@@ -106,6 +106,7 @@ io_input_state_e io_get_input(io_e io)
     return (*PXIN[IO_PORT(io)] & IO_PIN_BIT(io)) ? IO_INPUT_HIGH : IO_INPUT_LOW;
 }
 
+// Pass by reference but in const so we can save memory instead of copying structure
 void io_configuration(io_e io, const struct io_configuration *config)
 {
     io_set_sel(io, config->select);
