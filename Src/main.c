@@ -1,7 +1,7 @@
 #include <msp430.h>
 #include "Drivers/io.h"
 
-#define DELAY_ITERATIONS_PER_MS 60
+#define DELAY_ITERATIONS_PER_MS 57
 #define DELAY_MS 1
 
 static void blink_led(void)
