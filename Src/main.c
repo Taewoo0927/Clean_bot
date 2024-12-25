@@ -3,8 +3,11 @@
 #include "Drivers/io.h"
 #include "Others/others.h"
 
+#define _1S 1000
+
 static void blink_led(void)
 {
+    uint16_t _1sec = _1S;
     const struct io_configuration test_led = {
         .direction = IO_DIR_OP,
         .output = IO_PULL_STATE_LOW,
@@ -19,7 +22,7 @@ static void blink_led(void)
         // Toggle output state
         output_state = (output_state == IO_PULL_STATE_LOW ? IO_PULL_STATE_HIGH : IO_PULL_STATE_LOW);
         io_set_output(IO_TEST_LED, output_state);
-        _delay_ms(1000);
+        _delay_ms(_1sec);
     }
 }
 

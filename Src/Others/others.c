@@ -2,7 +2,7 @@
 
 #define DELAY_ITERATIONS_PER_MS 72
 
-void _delay_ms(uint8_t miliseconds)
+void _delay_ms(uint16_t miliseconds)
 {
     uint8_t _1ms;
     while (miliseconds-- > 0)
