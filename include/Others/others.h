@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-void _delay_ms(uint8_t miliseconds);
+void _delay_ms(int miliseconds);
 
 #endif // OTHERS_H
