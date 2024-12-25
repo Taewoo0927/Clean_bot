@@ -1,4 +1,5 @@
 #include <msp430.h>
+#include <stdint.h>
 #include "Drivers/io.h"
 #include "Others/others.h"
 
@@ -18,7 +19,7 @@ static void blink_led(void)
         // Toggle output state
         output_state = (output_state == IO_PULL_STATE_LOW ? IO_PULL_STATE_HIGH : IO_PULL_STATE_LOW);
         io_set_output(IO_TEST_LED, output_state);
-        _delay_ms(250);
+        _delay_ms(1000);
     }
 }
 
