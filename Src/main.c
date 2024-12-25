@@ -1,8 +1,8 @@
 #include <msp430.h>
 #include "Drivers/io.h"
 
-#define _1ms 67
-#define _number_of_ms 5
+#define _1ms 1000
+#define _number_of_ms 1
 
 static void blink_led(void)
 {
