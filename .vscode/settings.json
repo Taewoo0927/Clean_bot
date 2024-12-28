@@ -63,6 +63,7 @@
     "stdio.h": "c",
     "stdint.h": "c",
     "others.h": "c",
-    "system_init.h": "c"
+    "system_init.h": "c",
+    "test.h": "c"
   }
 }

@@ -38,7 +38,7 @@ CPPCHECK = cppcheck
 
 # Source files and output file & directories
 BUILD_DIR = Build
-SRC = Src/main.c Src/Drivers/io.c Src/Drivers/system_init.c Src/Others/others.c
+SRC = Src/main.c Src/Drivers/io.c Src/Drivers/system_init.c Src/Others/others.c Src/Test/test.c	# Add source codes as I add up
 OBJ = $(SRC:.c=.o)
 TARGET = $(BUILD_DIR)/main.elf
 HEX_FILE = $(BUILD_DIR)/main.txt
