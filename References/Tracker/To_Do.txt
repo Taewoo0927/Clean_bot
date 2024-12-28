@@ -16,4 +16,5 @@ To do:
 
 2024 12-24:
 To do:
-    implment configuration structure to the step.
+    implment configuration structure to the step. - ✔️
+    testing the merging branch
