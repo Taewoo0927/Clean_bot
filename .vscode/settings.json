@@ -62,6 +62,7 @@
     "msp430g2553.h": "c",
     "stdio.h": "c",
     "stdint.h": "c",
-    "others.h": "c"
+    "others.h": "c",
+    "system_init.h": "c"
   }
 }
