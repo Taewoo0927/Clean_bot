@@ -14,6 +14,7 @@ static void test_blink_led(void)
 {
     test_setup();
     io_out_e output_state = IO_PULL_STATE_LOW;
+
     while (1)
     {
         // Toggle output state

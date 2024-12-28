@@ -141,8 +141,8 @@ static const struct io_configuration io_default_init[IO_PIN_SIZE] = {
 
 void io_init()
 {
-    for (int i = 0; i < ARRAY_SIZE(io_default_init); i++)
-    {
-        io_configuration((io_e)(IO_10 + i), &io_default_init[i]);
-    }
+    // for (int pinidx = 10; pinidx < ARRAY_SIZE(io_default_init); pinidx++)
+    //{
+    io_configuration((io_e)(IO_10), &io_default_init[0]);
+    //}
 }
