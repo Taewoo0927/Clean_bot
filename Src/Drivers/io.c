@@ -118,6 +118,7 @@ void io_configuration(io_e io, const struct io_configuration *config)
     io_set_output(io, config->output);
 }
 
+// Needs to be different for dev board and pcb
 static const struct io_configuration io_default_init[IO_PIN_SIZE] = {
     [IO_TEST_LED] = {IO_SEL_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OP, IO_PULL_STATE_LOW},
     [IO_UART_RXD] = {IO_SEL_ALT3, IO_RESISTOR_DISABLED, IO_DIR_IP, IO_PULL_STATE_LOW},

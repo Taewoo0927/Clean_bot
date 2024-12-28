@@ -13,15 +13,7 @@ static void test_setup(void)
 static void test_blink_led(void)
 {
     test_setup();
-    const struct io_configuration test_led = {
-        .direction = IO_DIR_OP,
-        .output = IO_PULL_STATE_LOW,
-        .resistor = IO_RESISTOR_DISABLED,
-        .select = IO_SEL_GPIO};
-
-    io_configuration(IO_TEST_LED, &test_led);
     io_out_e output_state = IO_PULL_STATE_LOW;
-
     while (1)
     {
         // Toggle output state
