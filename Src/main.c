@@ -25,7 +25,8 @@ static void test_blink_led(void)
     }
 }
 
-static const struct io_configuration_s io_default_init[IO_PIN_SIZE] = {
+// Set all pins to output and test using logic analyzer
+static const struct io_configuration_s io_test_output[IO_PIN_SIZE] = {
     [IO_TEST_LED] = IO_OUTPUT_TEST,
     [IO_UART_RXD] = IO_OUTPUT_TEST,
     [IO_UART_TXD] = IO_OUTPUT_TEST,
@@ -47,11 +48,12 @@ static const struct io_configuration_s io_default_init[IO_PIN_SIZE] = {
 static void test_io_output(void)
 {
     test_setup();
+
     for (int portidx = 1; portidx < IO_PORT_SIZE; portidx++)
     {
         for (int pinidx = 0; pinidx < IO_PIN_CNT; pinidx++)
         {
-            io_configuration((io_e)((IO_10 * portidx) + pinidx), &io_default_init[(portidx - 1) * IO_PIN_CNT + pinidx]);
+            io_configuration((io_e)((IO_10 * portidx) + pinidx), &io_test_output[(portidx - 1) * IO_PIN_CNT + pinidx]);
         }
     }
 
@@ -71,6 +73,7 @@ static void test_io_output(void)
         }
     }
 }
+
 int main(void)
 {
     test_io_output();
