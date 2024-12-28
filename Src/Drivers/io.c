@@ -6,16 +6,17 @@
 #define IO_PORT(io) (((io) / 10) - 1)        // Extract Port number, -1 is to account for lookup table 0 -> P1, 1 -> P2
 #define IO_PIN_IDX(io) (((io) % 10))         // Extract Pin Index
 #define IO_PIN_BIT(io) (1 << IO_PIN_IDX(io)) // Shift to compute Pin BIT
-#define IO_LOOKUP_SIZE 2
+#define IO_PORT_SIZE 2
+#define IO_PIN_SIZE 8
 
 // Create Look Up table for optimizing Port1 & Port2 select in switch statement
 /* Register lookup */
-static volatile uint8_t *const PXSEL1[IO_LOOKUP_SIZE] = {&P1SEL, &P2SEL};
-static volatile uint8_t *const PXSEL2[IO_LOOKUP_SIZE] = {&P1SEL2, &P2SEL2};
-static volatile uint8_t *const PXDIR[IO_LOOKUP_SIZE] = {&P1DIR, &P2DIR};
-static volatile uint8_t *const PXOUT[IO_LOOKUP_SIZE] = {&P1OUT, &P2OUT};
-static volatile uint8_t *const PXREG[IO_LOOKUP_SIZE] = {&P1REN, &P2REN};
-static volatile uint8_t *const PXIN[IO_LOOKUP_SIZE] = {&P1IN, &P2IN};
+static volatile uint8_t *const PXSEL1[IO_PORT_SIZE] = {&P1SEL, &P2SEL};
+static volatile uint8_t *const PXSEL2[IO_PORT_SIZE] = {&P1SEL2, &P2SEL2};
+static volatile uint8_t *const PXDIR[IO_PORT_SIZE] = {&P1DIR, &P2DIR};
+static volatile uint8_t *const PXOUT[IO_PORT_SIZE] = {&P1OUT, &P2OUT};
+static volatile uint8_t *const PXREG[IO_PORT_SIZE] = {&P1REN, &P2REN};
+static volatile uint8_t *const PXIN[IO_PORT_SIZE] = {&P1IN, &P2IN};
 
 void io_set_sel(io_e io, io_sel_e sel)
 {
@@ -114,3 +115,9 @@ void io_configuration(io_e io, const struct io_configuration *config)
     io_set_resistor(io, config->resistor);
     io_set_output(io, config->output);
 }
+
+static const struct io_configuration io_initial_settings[IO_PORT_SIZE * IO_PIN_SIZE] = {
+    [IO_TEST_LED] = {IO_SEL_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OP, IO_PULL_STATE_LOW},
+    [IO_UART_RXD] = {IO_SEL_ALT3, IO_RESISTOR_DISABLED}
+
+};

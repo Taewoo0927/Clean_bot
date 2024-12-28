@@ -1,5 +1,4 @@
 #include <msp430.h>
-#include <stdint.h>
 #include "Drivers/system_init.h"
 #include "Drivers/io.h"
 #include "Others/others.h"

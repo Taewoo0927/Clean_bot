@@ -117,6 +117,7 @@ struct io_configuration
 };
 
 // Function definitions
+void io_init(void);
 void io_configuration(io_e io, const struct io_configuration *config);
 void io_set_sel(io_e io, io_sel_e sel);
 void io_set_dir(io_e io, io_dir_e dir);
