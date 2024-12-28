@@ -2,11 +2,29 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label" : "Git check commit",
-            "type" : "shell",
-            "command" : "make",
-            "args" : ["-f", "Makefile_dir/Git.mk", "git-check-commit"],
-            "group" : {
+            "label": "Check memory allocation",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "Makefile_dir/Makefile",
+                "size"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Git check commit",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "Makefile_dir/Git.mk",
+                "git-check-commit"
+            ],
+            "group": {
                 "kind": "build",
                 "isDefault": false
             }
@@ -15,18 +33,28 @@
             "label": "Build with Makefile",
             "type": "shell",
             "command": "make",
-            "args": ["-f", "Makefile_dir/Makefile", "all"],
+            "args": [
+                "-f",
+                "Makefile_dir/Makefile",
+                "all"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": [
+                "$gcc"
+            ]
         },
         {
             "label": "Clean with Makefile",
             "type": "shell",
             "command": "make",
-            "args": ["-f", "Makefile_dir/Makefile", "clean"],
+            "args": [
+                "-f",
+                "Makefile_dir/Makefile",
+                "clean"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": false
@@ -36,7 +64,11 @@
             "label": "Flash with Makefile",
             "type": "shell",
             "command": "make",
-            "args": ["-f", "Makefile_dir/Makefile", "flash"],
+            "args": [
+                "-f",
+                "Makefile_dir/Makefile",
+                "flash"
+            ],
             "group": {
                 "kind": "test",
                 "isDefault": false
@@ -44,7 +76,12 @@
         },
         {
             "label": "Build and Flash Makefile",
-            "dependsOn": ["Git check commit", "Build with Makefile", "Flash with Makefile"],
+            "dependsOn": [
+                "Git check commit",
+                "Check memory allocation",
+                "Build with Makefile",
+                "Flash with Makefile"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": false

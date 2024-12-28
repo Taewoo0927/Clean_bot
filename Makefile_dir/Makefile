@@ -82,3 +82,6 @@ cppcheck:
 	--suppress=unmatchedSuppression \
 	-I $(CUSTOM_INCLUDE) \
 	$(SRC)
+
+size: $(TARGET)
+	msp430-elf-size $(TARGET)
