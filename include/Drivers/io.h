@@ -4,6 +4,16 @@
 // apply code for launchpad
 #define LAUNCHPAD
 
+/* Creating mask to find port */
+#define IO_PORT(io) (((io) / 10) - 1)        // Extract Port number, -1 is to account for lookup table 0 -> P1, 1 -> P2
+#define IO_PIN_IDX(io) (((io) % 10))         // Extract Pin Index
+#define IO_PIN_BIT(io) (1 << IO_PIN_IDX(io)) // Shift to compute Pin BIT
+#define IO_PORT_SIZE 2
+#define IO_PIN_SIZE 28 // port10 to port 27 so end -> 28
+#define IO_PIN_CNT 8   // count of pin numbers - 10~17 is 8 and 20~27 is 8 so total 16
+#define UNUSED_PINS {IO_SEL_GPIO, IO_RESISTOR_ENABLED, IO_DIR_OP, IO_PULL_STATE_LOW}
+#define IO_OUTPUT_TEST {IO_SEL_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OP, IO_PULL_STATE_LOW}
+
 typedef enum
 {
     IO_10 = 10,
@@ -109,7 +119,7 @@ typedef enum
 } io_input_state_e;
 
 // io configuration - mode
-struct io_configuration
+struct io_configuration_s
 {
     io_sel_e select;
     io_resistor_e resistor;
@@ -119,7 +129,7 @@ struct io_configuration
 
 // Function definitions
 void io_init(void);
-void io_configuration(io_e io, const struct io_configuration *config);
+void io_configuration(io_e io, const struct io_configuration_s *config);
 void io_set_sel(io_e io, io_sel_e sel);
 void io_set_dir(io_e io, io_dir_e dir);
 void io_set_resistor(io_e io, io_resistor_e resistor);

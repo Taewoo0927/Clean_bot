@@ -21,7 +21,7 @@ else
 endif
 
 # Compiler flags default
-CFLAGS = -mmcu=$(MCU) -Wall -I$(CUSTOM_INCLUDE)
+CFLAGS = -mmcu=$(MCU) -Wall -I$(CUSTOM_INCLUDE) -std=c99
 # Add specified toolchain's directory if it's window
 ifeq ($(OS),Windows_NT)
     CFLAGS += -I$(INCLUDE_PATH) 
@@ -29,7 +29,7 @@ endif
 
 # Window and linux path
 ifeq ($(OS),Windows_NT)
-    LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT)
+    LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT) 
 else
     LDFLAGS = -mmcu=$(MCU)
 endif
@@ -38,7 +38,7 @@ CPPCHECK = cppcheck
 
 # Source files and output file & directories
 BUILD_DIR = Build
-SRC = Src/main.c Src/Drivers/io.c Src/Drivers/system_init.c Src/Others/others.c
+SRC = Src/main.c Src/Drivers/io.c Src/Drivers/system_init.c Src/Others/others.c Src/Test/test.c	# Add source codes as I add up
 OBJ = $(SRC:.c=.o)
 TARGET = $(BUILD_DIR)/main.elf
 HEX_FILE = $(BUILD_DIR)/main.txt
