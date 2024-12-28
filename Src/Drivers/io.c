@@ -8,7 +8,8 @@
 #define IO_PIN_IDX(io) (((io) % 10))         // Extract Pin Index
 #define IO_PIN_BIT(io) (1 << IO_PIN_IDX(io)) // Shift to compute Pin BIT
 #define IO_PORT_SIZE 2
-#define IO_PIN_SIZE 28 // port10 to port 27 total 28
+#define IO_PIN_SIZE 28 // port10 to port 27 so end -> 28
+#define IO_PIN_CNT 8   // count of pin numbers - 10~17 is 8 and 20~27 is 8 so total 16
 #define UNUSED_PINS {IO_SEL_GPIO, IO_RESISTOR_ENABLED, IO_DIR_OP, IO_PULL_STATE_LOW}
 
 // Create Look Up table for optimizing Port1 & Port2 select in switch statement
@@ -141,8 +142,21 @@ static const struct io_configuration io_default_init[IO_PIN_SIZE] = {
 
 void io_init()
 {
-    // for (int pinidx = 10; pinidx < ARRAY_SIZE(io_default_init); pinidx++)
-    //{
-    io_configuration((io_e)(IO_10), &io_default_init[0]);
-    //}
+    for (int portidx = 1; portidx < IO_PORT_SIZE; portidx++)
+    {
+        for (int pinidx = 0; pinidx < IO_PIN_CNT; pinidx++)
+        {
+            /*
+                Being little bit creative here:
+                io_default_init is structs of arrays which means to access it needs to be 0~15
+                but when we pass io_e we want to pass IO_10 ~IO_27 which is 10~17 and 20~27
+
+                ((IO_10 * portidx) + pinidx) <- it will check port and pinidx which will iterate 0~7 and add port 10 and 20
+                [(portidx - 1) * IO_PIN_CNT + pinidx] <- "(portidx - 1) * IO_PIN_CNT" this part will give 0 in first loop and 8 in the second loop
+                therefore adds up with pinidx 0~7 and then gives 8~15
+
+            */
+            io_configuration((io_e)((IO_10 * portidx) + pinidx), &io_default_init[(portidx - 1) * IO_PIN_CNT + pinidx]);
+        }
+    }
 }
