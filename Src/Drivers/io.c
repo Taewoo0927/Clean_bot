@@ -3,15 +3,6 @@
 #include "Drivers/io.h"
 #include "Others/others.h"
 
-/* Creating mask to find port */
-#define IO_PORT(io) (((io) / 10) - 1)        // Extract Port number, -1 is to account for lookup table 0 -> P1, 1 -> P2
-#define IO_PIN_IDX(io) (((io) % 10))         // Extract Pin Index
-#define IO_PIN_BIT(io) (1 << IO_PIN_IDX(io)) // Shift to compute Pin BIT
-#define IO_PORT_SIZE 2
-#define IO_PIN_SIZE 28 // port10 to port 27 so end -> 28
-#define IO_PIN_CNT 8   // count of pin numbers - 10~17 is 8 and 20~27 is 8 so total 16
-#define UNUSED_PINS {IO_SEL_GPIO, IO_RESISTOR_ENABLED, IO_DIR_OP, IO_PULL_STATE_LOW}
-
 // Create Look Up table for optimizing Port1 & Port2 select in switch statement
 /* Register lookup */
 static volatile uint8_t *const PXSEL1[IO_PORT_SIZE] = {&P1SEL, &P2SEL};
@@ -111,7 +102,7 @@ io_input_state_e io_get_input(io_e io)
 }
 
 // Pass by reference but in const so we can save memory instead of copying structure
-void io_configuration(io_e io, const struct io_configuration *config)
+void io_configuration(io_e io, const struct io_configuration_s *config)
 {
     io_set_sel(io, config->select);
     io_set_dir(io, config->direction);
@@ -120,7 +111,7 @@ void io_configuration(io_e io, const struct io_configuration *config)
 }
 
 // Needs to be different for dev board and pcb
-static const struct io_configuration io_default_init[IO_PIN_SIZE] = {
+static const struct io_configuration_s io_default_init[IO_PIN_SIZE] = {
     [IO_TEST_LED] = {IO_SEL_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OP, IO_PULL_STATE_LOW},
     [IO_UART_RXD] = {IO_SEL_ALT3, IO_RESISTOR_DISABLED, IO_DIR_IP, IO_PULL_STATE_LOW},
     [IO_UART_TXD] = {IO_SEL_ALT3, IO_RESISTOR_DISABLED, IO_DIR_OP, IO_PULL_STATE_LOW},
