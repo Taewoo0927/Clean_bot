@@ -5,11 +5,12 @@
 
 #define _1SECOND 1000
 
-// Small test unit
+// setting up the system
 static void test_setup(void)
 {
     system_init();
 }
+// Small test unit
 static void test_blink_led(void)
 {
     test_setup();
