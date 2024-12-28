@@ -131,6 +131,7 @@ static const struct io_configuration_s io_default_init[IO_PIN_SIZE] = {
 
 };
 
+// Can't find c99 error
 void io_init()
 {
     for (int portidx = 1; portidx < IO_PORT_SIZE; portidx++)
