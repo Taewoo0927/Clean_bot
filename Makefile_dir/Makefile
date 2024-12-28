@@ -21,7 +21,7 @@ else
 endif
 
 # Compiler flags default
-CFLAGS = -mmcu=$(MCU) -Wall -I$(CUSTOM_INCLUDE)
+CFLAGS = -mmcu=$(MCU) -Wall -I$(CUSTOM_INCLUDE) -std=c99
 # Add specified toolchain's directory if it's window
 ifeq ($(OS),Windows_NT)
     CFLAGS += -I$(INCLUDE_PATH) 
@@ -29,7 +29,7 @@ endif
 
 # Window and linux path
 ifeq ($(OS),Windows_NT)
-    LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT)
+    LDFLAGS = -L$(LIB_PATH) -T$(LINKER_SCRIPT) 
 else
     LDFLAGS = -mmcu=$(MCU)
 endif
