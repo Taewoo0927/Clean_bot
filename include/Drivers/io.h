@@ -1,6 +1,7 @@
 #ifndef IO_H
 #define IO_H
 
+// apply code for launchpad
 #define LAUNCHPAD
 
 typedef enum
@@ -39,7 +40,7 @@ typedef enum
     IO_UNUSED_8 = IO_22,
     IO_UNUSED_9 = IO_23,
     IO_UNUSED_10 = IO_24,
-    IO_UNSUED_11 = IO_25,
+    IO_UNUSED_11 = IO_25,
     IO_UNUSED_12 = IO_26,
     IO_UNUSED_13 = IO_27,
 #elif defined(CLEAN_BOT) // Clean_bot (MSP430G2553IPW28)
