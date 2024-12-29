@@ -25,6 +25,7 @@ void test_blink_led(void)
 }
 
 // Set all pins to output and test using logic analyzer
+/*
 static const struct io_configuration_s io_test_output[IO_PIN_SIZE] = {
     [IO_TEST_LED] = IO_OUTPUT_TEST,
     [IO_UART_RXD] = IO_OUTPUT_TEST,
@@ -44,6 +45,7 @@ static const struct io_configuration_s io_test_output[IO_PIN_SIZE] = {
     [IO_UNUSED_13] = IO_OUTPUT_TEST
 
 };
+*/
 
 /* Commenting out this function to save memory */
 /*

@@ -127,6 +127,12 @@ struct io_configuration_s
     io_out_e output;
 };
 
+typedef enum
+{
+    IO_EDGE_FALLING,
+    IO_EDGE_RISING
+} io_edge_e;
+
 // Function definitions
 void io_init(void);
 void io_configuration(io_e io, const struct io_configuration_s *config);
@@ -135,5 +141,8 @@ void io_set_dir(io_e io, io_dir_e dir);
 void io_set_resistor(io_e io, io_resistor_e resistor);
 void io_set_output(io_e io, io_out_e out);
 io_input_state_e io_get_input(io_e io);
+
+// Interrupt function definitions
+void io_configure_interrupt(io_e io, io_edge_e edge, isr_function isr);
 
 #endif // IO_H
