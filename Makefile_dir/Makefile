@@ -86,5 +86,10 @@ cppcheck:
 size: $(TARGET)
 	msp430-elf-size $(TARGET)
 
+# To do:
+# Try to improve by specfing to functions only
+# Flash memory (code storage): 16 KB  -- * 2^10 => (16,384 bytes).
+# RAM (data storage): 512 bytes. 
+
 size_detail: $(TARGET)
 	msp430-elf-readelf -s $(TARGET)

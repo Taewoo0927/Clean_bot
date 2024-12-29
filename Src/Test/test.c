@@ -45,6 +45,8 @@ static const struct io_configuration_s io_test_output[IO_PIN_SIZE] = {
 
 };
 
+/* Commenting out this function to save memory */
+/*
 void test_io_output(void)
 {
     test_setup();
@@ -72,4 +74,4 @@ void test_io_output(void)
             }
         }
     }
-}
+}*/

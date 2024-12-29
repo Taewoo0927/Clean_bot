@@ -3,5 +3,5 @@
 
 int main(void)
 {
-    test_io_output();
+    test_blink_led();
 }
