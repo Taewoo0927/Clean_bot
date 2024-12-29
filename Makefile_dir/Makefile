@@ -85,3 +85,6 @@ cppcheck:
 
 size: $(TARGET)
 	msp430-elf-size $(TARGET)
+
+size_detail: $(TARGET)
+	msp430-elf-readelf -s $(TARGET)
