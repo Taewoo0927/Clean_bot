@@ -10,4 +10,6 @@ void system_init(void)
 {
     stop_watchdog();
     io_init();
+    // Enables global interrupts
+    _enable_interrupts();
 }

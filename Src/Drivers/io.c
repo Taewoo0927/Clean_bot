@@ -1,5 +1,6 @@
 #include <msp430.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include "Drivers/io.h"
 #include "Others/others.h"
 
@@ -11,6 +12,18 @@ static volatile uint8_t *const PXDIR[IO_PORT_SIZE] = {&P1DIR, &P2DIR};
 static volatile uint8_t *const PXOUT[IO_PORT_SIZE] = {&P1OUT, &P2OUT};
 static volatile uint8_t *const PXREG[IO_PORT_SIZE] = {&P1REN, &P2REN};
 static volatile uint8_t *const PXIN[IO_PORT_SIZE] = {&P1IN, &P2IN};
+
+// Interrupt Registers -> Same for pcb since p1 and p2 is available only to interrupt
+static volatile uint8_t *const PXIFG[IO_PORT_SIZE] = {&P1IFG, &P2IFG}; // Interrupt flag
+static volatile uint8_t *const PXIE[IO_PORT_SIZE] = {&P2IE, &P2IE};    // Interrupt enable
+static volatile uint8_t *const PXIES[IO_PORT_SIZE] = {&P1IES, &P2IES}; // Interrupt edge select
+
+// ISR vector table
+// For individual port it can have total 8 isr since there is 8 pins so 2D array size is [2][8]
+static isr_function isr_functions[IO_PORT_SIZE][IO_PIN_CNT] = {
+    [IO_PORT1] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
+    [IO_PORT2] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
+};
 
 void io_set_sel(io_e io, io_sel_e sel)
 {
@@ -150,5 +163,97 @@ void io_init()
             */
             io_configuration((io_e)((IO_10 * portidx) + pinidx), &io_default_init[(portidx - 1) * IO_PIN_CNT + pinidx]);
         }
+    }
+}
+
+static void io_clear_interrupt(io_e io)
+{
+    *PXIFG[IO_PORT(io)] &= ~IO_PIN_BIT(io);
+}
+
+void io_disable_interrupt(io_e io)
+{
+    *PXIE[IO_PORT(io)] &= ~IO_PIN_BIT(io);
+}
+
+void io_enable_interrupt(io_e io)
+{
+    *PXIE[IO_PORT(io)] |= IO_PIN_BIT(io);
+}
+
+/*  Interrupt Functions */
+
+static void io_set_interrupt_edge(io_e io, io_edge_e edge)
+{
+    unsigned int port = IO_PORT(io);
+    unsigned int pin_bit = IO_PIN_BIT(io);
+
+    // Turn off interrupt while setting the edge
+    io_disable_interrupt(io);
+
+    // Switch statement to set the resistor register
+    switch (edge)
+    {
+    case IO_EDGE_RISING:
+        *PXIES[port] &= ~pin_bit;
+        break;
+    case IO_EDGE_FALLING:
+        *PXIES[port] |= pin_bit;
+        break;
+    }
+
+    io_clear_interrupt(io);
+}
+
+static void io_register_isr(io_e io, isr_function isr)
+{
+    unsigned int port = IO_PORT(io);
+    unsigned int pin_idx = IO_PIN_IDX(io);
+
+    if (isr_functions[port][pin_idx] == NULL)
+    {
+        isr_functions[port][pin_idx] = isr;
+    }
+}
+
+void io_configure_interrupt(io_e io, io_edge_e edge, isr_function isr)
+{
+    io_set_interrupt_edge(io, edge);
+    io_register_isr(io, isr);
+}
+
+static void io_isr(io_e io)
+{
+    unsigned int port = IO_PORT(io);
+    unsigned int pin_idx = IO_PIN_IDX(io);
+    unsigned int pin = IO_PIN_BIT(io);
+
+    // If interrupt flag pin is set
+    if (*PXIFG[port] & pin)
+    {
+        // isr table is not empty / assigned
+        if (isr_functions[port][pin_idx] != NULL)
+        {
+            isr_functions[port][pin_idx]();
+        }
+
+        // Explicitly clear interrupt flag
+        io_clear_interrupt(io);
+    }
+}
+
+void __attribute__((interrupt(PORT1_VECTOR))) isr_port1(void)
+{
+    for (io_generic_e io = IO_10; io <= IO_17; io++)
+    {
+        io_isr(io);
+    }
+}
+
+void __attribute__((interrupt(PORT2_VECTOR))) isr_port2(void)
+{
+    for (io_generic_e io = IO_20; io <= IO_27; io++)
+    {
+        io_isr(io);
     }
 }

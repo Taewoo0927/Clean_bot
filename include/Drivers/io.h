@@ -133,6 +133,12 @@ typedef enum
     IO_EDGE_RISING
 } io_edge_e;
 
+typedef enum
+{
+    IO_PORT1,
+    IO_PORT2,
+} io_port_e;
+
 // Function definitions
 void io_init(void);
 void io_configuration(io_e io, const struct io_configuration_s *config);
@@ -143,6 +149,11 @@ void io_set_output(io_e io, io_out_e out);
 io_input_state_e io_get_input(io_e io);
 
 // Interrupt function definitions
+typedef void (*isr_function)(void); // pointer function, basically I can point to different function and call isr_function
 void io_configure_interrupt(io_e io, io_edge_e edge, isr_function isr);
+void io_interrupt_flag(io_e io);
+void io_interrupt_enable(io_e io);
+void io_disable_interrupt(io_e io);
+void io_enable_interrupt(io_e io);
 
 #endif // IO_H
