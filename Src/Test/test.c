@@ -104,14 +104,33 @@ static void clear_led(void)
 /* Test ISR */
 static void io_13_isr(void)
 {
+    clear_led();
+    // set_led();
+}
+static void io_14_isr(void)
+{
     // clear_led();
     set_led();
 }
-
+static void io_15_isr(void)
+{
+    // clear_led();
+    set_led();
+}
+static void io_16_isr(void)
+{
+    // clear_led();
+    set_led();
+}
+static void io_17_isr(void)
+{
+    // clear_led();
+    set_led();
+}
 static void io_20_isr(void)
 {
-    // set_led();
-    clear_led();
+    set_led();
+    // clear_led();
 }
 
 /* Test usage of the interrupt set up,
@@ -127,11 +146,30 @@ void test_io_interrupt(void)
         .output = IO_PULL_STATE_HIGH};
 
     io_configuration(IO_13, &io_interrupts_config);
+    io_configuration(IO_14, &io_interrupts_config);
+    io_configuration(IO_15, &io_interrupts_config);
+    io_configuration(IO_16, &io_interrupts_config);
+    io_configuration(IO_17, &io_interrupts_config);
+
     io_configuration(IO_20, &io_interrupts_config);
     led_init();
     io_configure_interrupt(IO_13, IO_EDGE_FALLING, io_13_isr);
+    io_configure_interrupt(IO_14, IO_EDGE_FALLING, io_14_isr);
+    io_configure_interrupt(IO_15, IO_EDGE_FALLING, io_15_isr);
+    io_configure_interrupt(IO_16, IO_EDGE_FALLING, io_16_isr);
+    io_configure_interrupt(IO_17, IO_EDGE_FALLING, io_17_isr);
+
     io_configure_interrupt(IO_20, IO_EDGE_FALLING, io_20_isr);
     io_enable_interrupt(IO_13);
+
+    io_enable_interrupt(IO_14);
+
+    io_enable_interrupt(IO_15);
+
+    io_enable_interrupt(IO_16);
+
+    io_enable_interrupt(IO_17);
+
     io_enable_interrupt(IO_20);
     while (1)
         ;
