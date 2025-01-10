@@ -215,6 +215,8 @@ static void io_set_interrupt_edge(io_e io, io_edge_e edge)
 static void io_assign_isr(io_e io, isr_function isr)
 {
     unsigned int port = IO_PORT(io);
+    // Port is extracted as 1 or 2 but isr_functions uses 0 or 1
+    unsigned int interrupt_port = port - 1;
     unsigned int pin_idx = IO_PIN_IDX(io);
 
     if (isr_functions[port][pin_idx] == NULL)
