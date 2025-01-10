@@ -15,7 +15,7 @@ static volatile uint8_t *const PXIN[IO_PORT_SIZE] = {&P1IN, &P2IN};
 
 // Interrupt Registers -> Same for pcb since p1 and p2 is available only to interrupt
 static volatile uint8_t *const PXIFG[IO_PORT_SIZE] = {&P1IFG, &P2IFG}; // Interrupt flag
-static volatile uint8_t *const PXIE[IO_PORT_SIZE] = {&P2IE, &P2IE};    // Interrupt enable
+static volatile uint8_t *const PXIE[IO_PORT_SIZE] = {&P1IE, &P2IE};    // Interrupt enable
 static volatile uint8_t *const PXIES[IO_PORT_SIZE] = {&P1IES, &P2IES}; // Interrupt edge select
 
 void io_set_sel(io_e io, io_sel_e sel)
@@ -191,8 +191,8 @@ void io_enable_interrupt(io_e io)
 
 static void io_set_interrupt_edge(io_e io, io_edge_e edge)
 {
-    unsigned int port = IO_PORT(io);
-    unsigned int pin_bit = IO_PIN_BIT(io);
+    const unsigned int port = IO_PORT(io);
+    const unsigned int pin_bit = IO_PIN_BIT(io);
 
     // Turn off interrupt while setting the edge
     io_disable_interrupt(io);
