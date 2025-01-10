@@ -149,7 +149,7 @@ void io_set_output(io_e io, io_out_e out);
 io_input_state_e io_get_input(io_e io);
 
 // Interrupt function definitions
-typedef void (*isr_function)(void); // pointer function, basically I can point to different function and call isr_function
+typedef void (*isr_function)(void); // typedef for pointer function, basically if I make function it can point to different function and call isr_function
 void io_configure_interrupt(io_e io, io_edge_e edge, isr_function isr);
 void io_interrupt_flag(io_e io);
 void io_interrupt_enable(io_e io);

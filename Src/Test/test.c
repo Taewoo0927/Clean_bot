@@ -77,3 +77,60 @@ void test_io_output(void)
         }
     }
 }*/
+
+/* Test single state for LED */
+static void led_init(void)
+{
+    const struct io_configuration_s led_config = {
+        .select = IO_SEL_GPIO,
+        .resistor = IO_RESISTOR_DISABLED,
+        .direction = IO_DIR_OP,
+        .output = IO_PULL_STATE_LOW};
+    io_configuration(IO_TEST_LED, &led_config);
+}
+
+static void set_led(void)
+{
+    io_out_e output_state = IO_PULL_STATE_HIGH;
+    io_set_output(IO_TEST_LED, output_state);
+}
+
+static void clear_led(void)
+{
+    io_out_e output_state = IO_PULL_STATE_LOW;
+    io_set_output(IO_TEST_LED, output_state);
+}
+
+/* Test ISR */
+static void io_11_isr(void)
+{
+    set_led();
+}
+
+static void io_20_isr(void)
+{
+    clear_led();
+}
+
+/* Test usage of the interrupt set up,
+ * In this case it is falling edge so it will trigger when input reads low */
+
+void test_io_interrupt(void)
+{
+    test_setup();
+    const struct io_configuration_s io_interrupts_config = {
+        .select = IO_SEL_GPIO,
+        .resistor = IO_RESISTOR_ENABLED,
+        .direction = IO_DIR_IP,
+        .output = IO_PULL_STATE_HIGH};
+
+    io_configuration(IO_11, &io_interrupts_config);
+    io_configuration(IO_20, &io_interrupts_config);
+    led_init();
+    io_configure_interrupt(IO_11, IO_EDGE_FALLING, io_11_isr);
+    io_configure_interrupt(IO_20, IO_EDGE_FALLING, io_20_isr);
+    io_enable_interrupt(IO_11);
+    io_enable_interrupt(IO_20);
+    while (1)
+        ;
+}

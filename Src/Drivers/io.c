@@ -18,13 +18,6 @@ static volatile uint8_t *const PXIFG[IO_PORT_SIZE] = {&P1IFG, &P2IFG}; // Interr
 static volatile uint8_t *const PXIE[IO_PORT_SIZE] = {&P2IE, &P2IE};    // Interrupt enable
 static volatile uint8_t *const PXIES[IO_PORT_SIZE] = {&P1IES, &P2IES}; // Interrupt edge select
 
-// ISR vector table
-// For individual port it can have total 8 isr since there is 8 pins so 2D array size is [2][8]
-static isr_function isr_functions[IO_PORT_SIZE][IO_PIN_CNT] = {
-    [IO_PORT1] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
-    [IO_PORT2] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
-};
-
 void io_set_sel(io_e io, io_sel_e sel)
 {
     unsigned int port = IO_PORT(io);       // Extract Port number
@@ -166,7 +159,22 @@ void io_init()
     }
 }
 
-static void io_clear_interrupt(io_e io)
+/*  Interrupt Functions */
+
+/* Quick guides:
+ * We will first configue interrupt per port-pin by "io_configure_interrupt"
+ * Which will assign the isr to itself if it's not assigned and set edge
+ * Now if interrupt is called it will check flag and isr to be called by io_isr
+ */
+
+// ISR vector table
+// For individual port it can have total 8 isr since there is 8 pins so 2D array size is [2][8]
+static isr_function isr_functions[IO_PORT_SIZE][IO_PIN_CNT] = {
+    [IO_PORT1] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
+    [IO_PORT2] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
+};
+
+static void io_clear_interrupt_flag(io_e io)
 {
     *PXIFG[IO_PORT(io)] &= ~IO_PIN_BIT(io);
 }
@@ -180,8 +188,6 @@ void io_enable_interrupt(io_e io)
 {
     *PXIE[IO_PORT(io)] |= IO_PIN_BIT(io);
 }
-
-/*  Interrupt Functions */
 
 static void io_set_interrupt_edge(io_e io, io_edge_e edge)
 {
@@ -202,10 +208,11 @@ static void io_set_interrupt_edge(io_e io, io_edge_e edge)
         break;
     }
 
-    io_clear_interrupt(io);
+    // Make sure to clear interrupt flage
+    io_clear_interrupt_flag(io);
 }
 
-static void io_register_isr(io_e io, isr_function isr)
+static void io_assign_isr(io_e io, isr_function isr)
 {
     unsigned int port = IO_PORT(io);
     unsigned int pin_idx = IO_PIN_IDX(io);
@@ -219,31 +226,34 @@ static void io_register_isr(io_e io, isr_function isr)
 void io_configure_interrupt(io_e io, io_edge_e edge, isr_function isr)
 {
     io_set_interrupt_edge(io, edge);
-    io_register_isr(io, isr);
+    io_assign_isr(io, isr);
 }
 
+// Call interrupt service routine
 static void io_isr(io_e io)
 {
     unsigned int port = IO_PORT(io);
     unsigned int pin_idx = IO_PIN_IDX(io);
-    unsigned int pin = IO_PIN_BIT(io);
+    unsigned int pin_bit = IO_PIN_BIT(io);
 
-    // If interrupt flag pin is set
-    if (*PXIFG[port] & pin)
+    // Check if the interrupt flag pin is set
+    if (*PXIFG[port] & pin_bit)
     {
-        // isr table is not empty / assigned
+        // Check isr table is not empty or not assigned
         if (isr_functions[port][pin_idx] != NULL)
         {
+            // Call ISR function
             isr_functions[port][pin_idx]();
         }
 
-        // Explicitly clear interrupt flag
-        io_clear_interrupt(io);
+        // Explicitly clear interrupt flag to come out from interrupt
+        io_clear_interrupt_flag(io);
     }
 }
 
 void __attribute__((interrupt(PORT1_VECTOR))) isr_port1(void)
 {
+    // Check individual IO pins of PORT1 if there are any interrupt flagged
     for (io_generic_e io = IO_10; io <= IO_17; io++)
     {
         io_isr(io);
@@ -252,6 +262,7 @@ void __attribute__((interrupt(PORT1_VECTOR))) isr_port1(void)
 
 void __attribute__((interrupt(PORT2_VECTOR))) isr_port2(void)
 {
+    // Check individual IO pins of PORT2 if there are any interrupt flagged
     for (io_generic_e io = IO_20; io <= IO_27; io++)
     {
         io_isr(io);
