@@ -219,9 +219,9 @@ static void io_assign_isr(io_e io, isr_function isr)
     unsigned int interrupt_port = port - 1;
     unsigned int pin_idx = IO_PIN_IDX(io);
 
-    if (isr_functions[port][pin_idx] == NULL)
+    if (isr_functions[interrupt_port][pin_idx] == NULL)
     {
-        isr_functions[port][pin_idx] = isr;
+        isr_functions[interrupt_port][pin_idx] = isr;
     }
 }
 
@@ -235,6 +235,8 @@ void io_configure_interrupt(io_e io, io_edge_e edge, isr_function isr)
 static void io_isr(io_e io)
 {
     unsigned int port = IO_PORT(io);
+    // Port is extracted as 1 or 2 but isr_functions uses 0 or 1
+    unsigned int interrupt_port = port - 1;
     unsigned int pin_idx = IO_PIN_IDX(io);
     unsigned int pin_bit = IO_PIN_BIT(io);
 
@@ -242,10 +244,10 @@ static void io_isr(io_e io)
     if (*PXIFG[port] & pin_bit)
     {
         // Check isr table is not empty or not assigned
-        if (isr_functions[port][pin_idx] != NULL)
+        if (isr_functions[interrupt_port][pin_idx] != NULL)
         {
             // Call ISR function
-            isr_functions[port][pin_idx]();
+            isr_functions[interrupt_port][pin_idx]();
         }
 
         // Explicitly clear interrupt flag to come out from interrupt
